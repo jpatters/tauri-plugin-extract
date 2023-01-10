@@ -27,15 +27,16 @@ impl Serialize for Error {
   }
 }
 
+
 #[command]
 async fn extract<R: Runtime>(
   _window: Window<R>,
   zip_path: &str,
   out_dir: &str,
-) -> Result<(), zip_extract::ZipExtractError> {
+) -> Result<String> {
   let target_dir = PathBuf::from(out_dir);
   let mut file = File::open(zip_path)?;
-  zip_extract::extract(file, &target_dir, true)
+  Ok(zip_extract::extract(file, &target_dir, true))
 }
 
 /// Initializes the plugin.
