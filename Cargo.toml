@@ -1,0 +1,14 @@
+[package]
+name = "tauri-plugin-extract"
+version = "0.1.0"
+authors = [ "Jordan Patterson" ]
+description = "Extract zip archives"
+edition = "2021"
+rust-version = "1.59"
+exclude = ["/examples", "/webview-dist", "/webview-src", "node_modules"]
+
+[dependencies]
+tauri = { version = "1.2.2" }
+serde = "1.0"
+thiserror = "1.0"
+zip-extract = "0.1.1"
