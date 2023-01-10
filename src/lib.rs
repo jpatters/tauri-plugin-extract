@@ -34,7 +34,7 @@ async fn extract<R: Runtime>(
   out_dir: &str,
 ) -> Result<String> {
   let target_dir = PathBuf::from(out_dir);
-  let file = File::open(zip_path)?;
+  let file = File::open(src_zip)?;
   zip_extract::extract(file, &target_dir, true)?;
   Ok("Extracted".to_string())
 }
