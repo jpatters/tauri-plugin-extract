@@ -1,5 +1,4 @@
 use std::path::PathBuf;
-use std::io::Cursor;
 use std::fs::File;
 use serde::{ser::Serializer, Serialize};
 use tauri::{
@@ -8,14 +7,14 @@ use tauri::{
   Runtime, Window,
 };
 
-use std::{collections::HashMap, sync::Mutex};
-
 type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
   #[error(transparent)]
   Io(#[from] std::io::Error),
+  #[error(transparent)]
+  Zip(#[from] zip_extract::ZipExtractError),
 }
 
 impl Serialize for Error {
@@ -31,12 +30,12 @@ impl Serialize for Error {
 #[command]
 async fn extract<R: Runtime>(
   _window: Window<R>,
-  zip_path: &str,
+  src_zip: &str,
   out_dir: &str,
 ) -> Result<String> {
   let target_dir = PathBuf::from(out_dir);
-  let mut file = File::open(zip_path)?;
-  zip_extract::extract(file, &target_dir, true);
+  let file = File::open(zip_path)?;
+  zip_extract::extract(file, &target_dir, true)?;
   Ok("Extracted".to_string())
 }
 
