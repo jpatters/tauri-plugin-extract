@@ -1,1 +1,4 @@
-export declare function extract(srcZip: string, outDir: string): Promise<unknown>;
+export declare function extract(opts: {
+    srcZip: string;
+    outDir: string;
+}): Promise<unknown>;
