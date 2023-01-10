@@ -36,7 +36,8 @@ async fn extract<R: Runtime>(
 ) -> Result<String> {
   let target_dir = PathBuf::from(out_dir);
   let mut file = File::open(zip_path)?;
-  Ok(zip_extract::extract(file, &target_dir, true))
+  zip_extract::extract(file, &target_dir, true)?;
+  Ok("Extracted".to_string())
 }
 
 /// Initializes the plugin.
