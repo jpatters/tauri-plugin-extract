@@ -1,1 +1,1 @@
-export declare function execute(): Promise<void>
+export declare function extract(srcZip: string, targetDir: string): Promise<unknown>;
